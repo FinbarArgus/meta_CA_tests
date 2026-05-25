@@ -232,7 +232,7 @@ cd /path/to/my_new_model
 
 Both tests must pass. A working Python env needs circulatory_autogen dependencies
 (myokit, libcellml, numpy, etc.). The meta runner defaults to
-`sympathetic_neuron/SN_full/venv/bin/python` when present.
+`circulatory_autogen/venv/bin/python` when present.
 
 ---
 

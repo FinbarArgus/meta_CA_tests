@@ -19,7 +19,7 @@ break downstream private models before merging or releasing.
   export CIRCULATORY_AUTOGEN_DIR=/path/to/circulatory_autogen
   ```
 - Python environment with circulatory_autogen dependencies installed
-  (the meta runner prefers `sympathetic_neuron/SN_full/venv/bin/python` when present)
+  (the meta runner prefers `circulatory_autogen/venv/bin/python` when present)
 - `pytest` installed in each repo (or install dev extras):
   ```bash
   pip install -e "../sympathetic_neuron[dev]"

@@ -1,4 +1,4 @@
-# meta_tests
+# meta_CA_tests
 
 Coordinator test suite for private circulatory_autogen model repositories.
 

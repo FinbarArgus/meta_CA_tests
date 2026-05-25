@@ -10,6 +10,7 @@ break downstream private models before merging or releasing.
 - `sympathetic_neuron` — SN_full CellML generation and simulation
 - `lung_CPAP_model` — lung_dev pre_calib CellML generation and simulation
 - `lymph_CA_user` — Lymphatic CellML generation and simulation
+- `CA_user_volume_control` — PhLynx BVC RAAS5 CellML simulation
 
 ## Prerequisites
 
@@ -57,3 +58,4 @@ and `sys.path` stay isolated between projects.
 | `SYMPATHETIC_NEURON_DIR` | Override path to sympathetic_neuron repo |
 | `LUNG_CPAP_MODEL_DIR` | Override path to lung_CPAP_model repo |
 | `LYMPH_CA_USER_DIR` | Override path to lymph_CA_user repo |
+| `CA_USER_VOLUME_CONTROL_DIR` | Override path to CA_user_volume_control repo |

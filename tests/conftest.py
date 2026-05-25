@@ -46,6 +46,14 @@ def lymph_ca_user_dir():
 
 
 @pytest.fixture(scope="session")
+def ca_user_volume_control_dir():
+    env = os.environ.get("CA_USER_VOLUME_CONTROL_DIR")
+    if env:
+        return Path(env).resolve()
+    return (GIT_PROJECTS / "CA_user_volume_control").resolve()
+
+
+@pytest.fixture(scope="session")
 def subprocess_env(circulatory_autogen_dir):
     env = os.environ.copy()
     env["CIRCULATORY_AUTOGEN_DIR"] = str(circulatory_autogen_dir)

@@ -51,6 +51,7 @@ Meta tests never import circulatory_autogen or model code directly.
 | `sympathetic_neuron` | `SYMPATHETIC_NEURON_DIR` | `test_sympathetic_neuron_integration` | `tests/test_sn_full.py` |
 | `lung_CPAP_model` | `LUNG_CPAP_MODEL_DIR` | `test_lung_cpap_model_integration` | `tests/test_lung_dev.py` |
 | `lymph_CA_user` | `LYMPH_CA_USER_DIR` | `test_lymph_ca_user_integration` | `tests/test_lymphatic.py` |
+| `CA_user_volume_control` | `CA_USER_VOLUME_CONTROL_DIR` | `test_ca_user_volume_control_integration` | `tests/test_bvc_raas5.py` |
 
 ## Environment variables
 
@@ -310,6 +311,14 @@ Study these existing repos before adding a new one:
 - Tests: `lymph_CA_user/tests/test_lymphatic.py`
 - Generated path: `{tmp}/Lymphatic/Lymphatic.cellml`
 - Simulation check: lymph vessel volume (`Lymph_vessel_1_module.q_m` or similar)
+
+### CA_user_volume_control (PhLynx-exported CellML, simulation-only)
+
+- No circulatory_autogen autogeneration inputs in-repo; uses committed PhLynx export
+- Reference model: `version_1/generated_models/phlynx-export-3C-BVC-RAAS5/phlynx-export-3C-BVC-RAAS5.cellml`
+- Tests: `CA_user_volume_control/tests/test_bvc_raas5.py`
+- Tests: model availability + short simulation via `get_simulation_helper`
+- Simulation check: `aortic_root/u`
 
 ---
 

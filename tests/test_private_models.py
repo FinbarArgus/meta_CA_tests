@@ -56,3 +56,14 @@ def test_lymph_ca_user_integration(lymph_ca_user_dir, subprocess_env):
     if not lymph_ca_user_dir.is_dir():
         pytest.skip(f"lymph_CA_user repo not found: {lymph_ca_user_dir}")
     _run_repo_pytest(lymph_ca_user_dir, subprocess_env)
+
+
+@pytest.mark.integration
+@pytest.mark.slow
+def test_ca_user_volume_control_integration(ca_user_volume_control_dir, subprocess_env):
+    """Run CA_user_volume_control integration tests against circulatory_autogen."""
+    if not ca_user_volume_control_dir.is_dir():
+        pytest.skip(
+            f"CA_user_volume_control repo not found: {ca_user_volume_control_dir}"
+        )
+    _run_repo_pytest(ca_user_volume_control_dir, subprocess_env)

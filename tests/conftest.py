@@ -38,6 +38,14 @@ def lung_cpap_model_dir():
 
 
 @pytest.fixture(scope="session")
+def lymph_ca_user_dir():
+    env = os.environ.get("LYMPH_CA_USER_DIR")
+    if env:
+        return Path(env).resolve()
+    return (GIT_PROJECTS / "lymph_CA_user").resolve()
+
+
+@pytest.fixture(scope="session")
 def subprocess_env(circulatory_autogen_dir):
     env = os.environ.copy()
     env["CIRCULATORY_AUTOGEN_DIR"] = str(circulatory_autogen_dir)

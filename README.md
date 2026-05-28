@@ -7,7 +7,7 @@ break downstream private models before merging or releasing.
 
 ## Covered repositories
 
-- `sympathetic_neuron` — SN_full CellML generation and simulation
+- `sympathetic_neuron` — SN_full CellML generation/simulation and cost-check regression
 - `lung_CPAP_model` — lung_dev pre_calib CellML generation and simulation
 - `lymph_CA_user` — Lymphatic CellML generation and simulation
 - `CA_user_volume_control` — PhLynx BVC RAAS5 CellML simulation
@@ -48,7 +48,9 @@ pytest tests/ -m integration -v
 ```
 
 Each meta test launches the target repository's pytest in a subprocess so imports
-and `sys.path` stay isolated between projects.
+and `sys.path` stay isolated between projects. The subprocess runs **every test**
+under that repo's `tests/` directory (`pytest tests/ -v`), including integration,
+slow, and cost-check markers (e.g. `sympathetic_neuron/tests/test_cost_check.py`).
 
 ## Environment variables
 

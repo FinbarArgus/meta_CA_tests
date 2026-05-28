@@ -6,16 +6,17 @@ import sys
 import pytest
 
 
-def _run_repo_pytest(repo_dir, env, marker="integration"):
+def _run_repo_pytest(repo_dir, env, extra_pytest_args=None):
+    """Run the full pytest suite under ``<repo>/tests/`` (all test modules)."""
     cmd = [
         sys.executable,
         "-m",
         "pytest",
         "tests/",
-        "-m",
-        marker,
         "-v",
     ]
+    if extra_pytest_args:
+        cmd.extend(extra_pytest_args)
     result = subprocess.run(
         cmd,
         cwd=str(repo_dir),
@@ -34,7 +35,7 @@ def _run_repo_pytest(repo_dir, env, marker="integration"):
 @pytest.mark.integration
 @pytest.mark.slow
 def test_sympathetic_neuron_integration(sympathetic_neuron_dir, subprocess_env):
-    """Run sympathetic_neuron integration tests against circulatory_autogen."""
+    """Run all sympathetic_neuron tests/ (SN_full smoke + cost_check regression)."""
     if not sympathetic_neuron_dir.is_dir():
         pytest.skip(f"sympathetic_neuron repo not found: {sympathetic_neuron_dir}")
     _run_repo_pytest(sympathetic_neuron_dir, subprocess_env)

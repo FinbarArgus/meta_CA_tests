@@ -39,7 +39,7 @@ git_projects/
 
 | Layer | Location | Responsibility |
 |-------|----------|----------------|
-| Meta | `meta_CA_tests/tests/` | Discover repo path, set env, `subprocess` → `pytest -m integration` |
+| Meta | `meta_CA_tests/tests/` | Discover repo path, set env, `subprocess` → `pytest tests/ -v` (full suite) |
 | Model | `<model_repo>/tests/` | Generate CellML via CA, run short simulation, assert outputs |
 
 Meta tests never import circulatory_autogen or model code directly.
@@ -48,7 +48,7 @@ Meta tests never import circulatory_autogen or model code directly.
 
 | Repo | Env override | Meta test function | Model smoke tests |
 |------|--------------|-------------------|-------------------|
-| `sympathetic_neuron` | `SYMPATHETIC_NEURON_DIR` | `test_sympathetic_neuron_integration` | `tests/test_sn_full.py` |
+| `sympathetic_neuron` | `SYMPATHETIC_NEURON_DIR` | `test_sympathetic_neuron_integration` | `tests/test_sn_full.py`, `tests/test_cost_check.py` |
 | `lung_CPAP_model` | `LUNG_CPAP_MODEL_DIR` | `test_lung_cpap_model_integration` | `tests/test_lung_dev.py` |
 | `lymph_CA_user` | `LYMPH_CA_USER_DIR` | `test_lymph_ca_user_integration` | `tests/test_lymphatic.py` |
 | `CA_user_volume_control` | `CA_USER_VOLUME_CONTROL_DIR` | `test_ca_user_volume_control_integration` | `tests/test_bvc_raas5.py` |
@@ -265,10 +265,11 @@ def test_my_new_model_integration(my_new_model_dir, subprocess_env):
     _run_repo_pytest(my_new_model_dir, subprocess_env)
 ```
 
-Do **not** duplicate model logic here. `_run_repo_pytest` already runs:
+Do **not** duplicate model logic here. `_run_repo_pytest` already runs the full
+`tests/` directory in each repo:
 
 ```
-python -m pytest tests/ -m integration -v
+python -m pytest tests/ -v
 ```
 
 in the target repo with `CIRCULATORY_AUTOGEN_DIR` set in the environment.
@@ -293,7 +294,7 @@ Study these existing repos before adding a new one:
 ### sympathetic_neuron (custom modules, external_modules_dir)
 
 - Config: `SN_full/resources/SN_full_parameters.csv` + `module_config_user/`
-- Tests: `sympathetic_neuron/tests/test_sn_full.py`
+- Tests: `sympathetic_neuron/tests/test_sn_full.py`, `sympathetic_neuron/tests/test_cost_check.py`
 - Generated path: `{tmp}/SN_full/SN_full.cellml`
 - Simulation check: soma membrane potential (`soma_SN_module.V`)
 

@@ -14,5 +14,9 @@ else
   PY="$(command -v python3)"
 fi
 
+# Export the chosen interpreter so subprocess-spawned child suites use the same
+# one (sys.executable is empty under the OpenCOR Python shell).
+export PYTHON="${PY}"
+
 cd "${SCRIPT_DIR}"
 "${PY}" -m pytest tests/ -v "$@"

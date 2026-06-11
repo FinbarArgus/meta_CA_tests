@@ -1,15 +1,26 @@
 """Run private model integration tests as isolated subprocesses."""
 
+import os
 import subprocess
 import sys
 
 import pytest
 
 
+def _python_executable(env):
+    """Interpreter to run child suites with.
+
+    Prefer the ``PYTHON`` env var (run_tests.sh exports its chosen interpreter),
+    because ``sys.executable`` is empty under the OpenCOR Python shell — which is
+    required for backends like OpenCOR. Fall back to sys.executable, then python3.
+    """
+    return env.get("PYTHON") or sys.executable or "python3"
+
+
 def _run_repo_pytest(repo_dir, env, extra_pytest_args=None):
     """Run the full pytest suite under ``<repo>/tests/`` (all test modules)."""
     cmd = [
-        sys.executable,
+        _python_executable(env),
         "-m",
         "pytest",
         "tests/",
@@ -68,3 +79,17 @@ def test_ca_user_volume_control_integration(ca_user_volume_control_dir, subproce
             f"CA_user_volume_control repo not found: {ca_user_volume_control_dir}"
         )
     _run_repo_pytest(ca_user_volume_control_dir, subprocess_env)
+
+
+@pytest.mark.integration
+@pytest.mark.slow
+def test_glucose_dynamics_integration(glucose_dynamics_dir, subprocess_env):
+    """Run glucose_dynamics tests (Myokit vs OpenCOR solver + calibration cost).
+
+    The Myokit/OpenCOR comparisons require both backends, so they only execute
+    fully under the OpenCOR Python shell (run the meta suite with PYTHON set to
+    it); under a Myokit-only env they skip.
+    """
+    if not glucose_dynamics_dir.is_dir():
+        pytest.skip(f"glucose_dynamics repo not found: {glucose_dynamics_dir}")
+    _run_repo_pytest(glucose_dynamics_dir, subprocess_env)

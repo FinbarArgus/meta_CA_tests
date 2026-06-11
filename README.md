@@ -11,6 +11,7 @@ break downstream private models before merging or releasing.
 - `lung_CPAP_model` — lung_dev pre_calib CellML generation and simulation
 - `lymph_CA_user` — Lymphatic CellML generation and simulation
 - `CA_user_volume_control` — PhLynx BVC RAAS5 CellML simulation
+- `glucose_dynamics` — ICING glucose model: Myokit-vs-OpenCOR multi-meal solver and calibration-cost comparison (needs both backends; run under the OpenCOR Python shell)
 
 ## Prerequisites
 
@@ -61,3 +62,4 @@ slow, and cost-check markers (e.g. `sympathetic_neuron/tests/test_cost_check.py`
 | `LUNG_CPAP_MODEL_DIR` | Override path to lung_CPAP_model repo |
 | `LYMPH_CA_USER_DIR` | Override path to lymph_CA_user repo |
 | `CA_USER_VOLUME_CONTROL_DIR` | Override path to CA_user_volume_control repo |
+| `GLUCOSE_DYNAMICS_DIR` | Override path to glucose_dynamics repo |

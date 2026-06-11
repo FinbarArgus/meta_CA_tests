@@ -54,6 +54,14 @@ def ca_user_volume_control_dir():
 
 
 @pytest.fixture(scope="session")
+def glucose_dynamics_dir():
+    env = os.environ.get("GLUCOSE_DYNAMICS_DIR")
+    if env:
+        return Path(env).resolve()
+    return (GIT_PROJECTS / "glucose_dynamics").resolve()
+
+
+@pytest.fixture(scope="session")
 def subprocess_env(circulatory_autogen_dir):
     env = os.environ.copy()
     env["CIRCULATORY_AUTOGEN_DIR"] = str(circulatory_autogen_dir)
